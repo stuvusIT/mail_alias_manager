@@ -71,7 +71,7 @@ class SenderAlias(MethodView):
         return item
 
     @API_V1.response(code=204)
-    def delete(self, sender_alias_id, update_data):
+    def delete(self, sender_alias_id):
         """ Delete a single sender alias """
         item = SenderAlias_DB.query.filter(SenderAlias_DB.id == sender_alias_id).first()
         if item is None:
