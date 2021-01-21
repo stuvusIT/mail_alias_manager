@@ -39,7 +39,7 @@ def create_app(test_config: Optional[Dict[str, Any]] = None):
         # also try to load json config
         app.config.from_json("config.json", silent=True)
         # load config from file specified in env var
-        app.config.from_envvar(f"{__name__}_SETTINGS", silent=True)
+        app.config.from_envvar(f"{__name__}_SETTINGS".upper(), silent=True)
         # TODO load some config keys directly from env vars
     else:
         # load the test config if passed in
