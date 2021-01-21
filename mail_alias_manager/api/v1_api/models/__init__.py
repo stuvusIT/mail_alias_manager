@@ -3,5 +3,10 @@
 import marshmallow as ma
 from ...util import MaBaseSchema
 
+from .recipient_alias import *
+from .sender_alias import *
+
+
 class RootSchema(MaBaseSchema):
-    auth = ma.fields.Url(required=True, allow_none=False, dump_only=True)
+    recipient_alias = ma.fields.Url(required=True, allow_none=False, dump_only=True)
+    sender_alias = ma.fields.Url(required=True, allow_none=False, dump_only=True)

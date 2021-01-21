@@ -14,7 +14,8 @@ API_V1 = Blueprint(
 
 @dataclass()
 class RootData:
-    pass
+    recipient_alias: str
+    sender_alias: str
 
 
 @API_V1.route("/")
@@ -24,4 +25,5 @@ class RootView(MethodView):
     @API_V1.response(RootSchema())
     def get(self):
         """Get the urls of the next endpoints of the v1 api to call."""
-        return RootData()
+        return RootData(recipient_alias=url_for("api-v1.RecipientAliasList", _external=True),
+                        sender_alias=url_for("api-v1.SenderAliasList", _external=True))
