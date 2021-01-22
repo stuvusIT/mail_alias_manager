@@ -22,7 +22,7 @@ class SenderAliasList(MethodView):
     @API_V1.arguments(SenderAlias, description="The alias to add")
     @API_V1.response(SenderAlias, code=201)
     def post(self, new_data):
-        """Add a new sender aliases"""
+        """Add a new sender alias"""
         item = SenderAlias_DB(**new_data)
         DB.session.add(item)
         DB.session.commit()
@@ -33,10 +33,10 @@ class SenderAliasList(MethodView):
 class SenderAliasCreateMany(MethodView):
     """Endpoint to create many aliases in one request."""
 
-    @API_V1.arguments(SenderAlias(many=True), description="The alias to add")
+    @API_V1.arguments(SenderAlias(many=True), description="The aliases to add")
     @API_V1.response(SenderAlias(many=True), code=201)
     def post(self, new_data):
-        """Add a new sender aliases"""
+        """Add new sender aliases"""
         items = []
         for data in new_data:
             item = SenderAlias_DB(**data)
@@ -44,6 +44,22 @@ class SenderAliasCreateMany(MethodView):
             items.append(item)
         DB.session.commit()
         return items
+
+
+@API_V1.route("/sender_alias/replace")
+class SenderAliasReplace(MethodView):
+    """Endpoint to repalce all sender aliases."""
+
+    @API_V1.arguments(SenderAlias(many=True), description="The new list which should be set")
+    @API_V1.response(code=204)
+    def post(self, new_data):
+        """Replace all sender aliases with the given list."""
+        SenderAlias_DB.query.delete()
+
+        for data in new_data:
+            item = SenderAlias_DB(**data)
+            DB.session.add(item)
+        DB.session.commit()
 
 
 @API_V1.route("/sender_alias/<sender_alias_id>/")
