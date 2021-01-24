@@ -48,7 +48,7 @@ class RecipientAliasCreateMany(MethodView):
 
 @API_V1.route("/recipient_alias/replace")
 class RecipientAliasReplace(MethodView):
-    """Endpoint to repalce all recipient aliases."""
+    """Endpoint to replace all recipient aliases."""
 
     @API_V1.arguments(RecipientAlias(many=True), description="The new list which should be set")
     @API_V1.response(code=204)
